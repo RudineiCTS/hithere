@@ -19,7 +19,8 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-image: url("../../public/bgapp.png")
+  background-image: url("../../public/bgapp.png");
+  background-size: cover;
 }
 
 a {

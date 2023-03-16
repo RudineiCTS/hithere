@@ -1,12 +1,29 @@
-import firebase from "@/services/firebase"
-import { getAuth, signInWithRedirect, GithubAuthProvider} from "firebase/auth";
-import { auth, provider } from "./api/auth/OauthWithFireabse";
+import { auth } from "@/services/firebase";
+import {signInWithRedirect, getRedirectResult} from "firebase/auth";
+import { useEffect } from "react";
+import { provider, } from "./api/auth/OauthWithFireabse";
 
 
 export default function Home() {
-  function SignIn(){
-    signInWithRedirect(auth, provider);
+  async function SignIn(){
+     await signInWithRedirect(auth, provider);
   }
+  useEffect(()=>{
+  getRedirectResult(auth)
+  .then((result) => {
+    if(!result){
+      return;
+    }
+    const user = result.user;
+    console.log(user)
+    return user;
+
+  }).catch((error) => {
+    const errorCode = error.code;
+    return errorCode;
+  });
+  },[])
+
   return (
     <>  
       <button onClick={
